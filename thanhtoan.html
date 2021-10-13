@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Thông tin thanh toán</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script type="text/javascript" src="vendor/bootstrap.js"></script>
+        <script type="text/javascript" src="1.js"></script>
+        <link rel="stylesheet" href="vendor/bootstrap.css" />
+        <link rel="stylesheet" href="vendor/font-awesome.css" />
+        <link rel="stylesheet" href="1.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://code.jquery.com/jquery-3.5.1.min.js"
+        />
+        <link rel="shortcut icon" href="img/logo.png" type="image/x-icon" />
+    </head>
+    <body>
+        <br />
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a href="sanpham.html">Quay về </a>
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div class="giohang">
+            <div class="container">
+                <div class="row">
+                    <h3 id="_quanly" style="width: 100%">
+                        <img src="img/logo.png" alt="" width="70px;" />ĐƠN HÀNG
+                        CỦA BẠN
+                    </h3>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <h6 id="totalItem" style="color: red">
+                                    Tổng cộng mặt hàng trong giỏ:
+                                </h6>
+                                <br />
+                                <br />
+                                <h6 id="totalPrice" style="color: red">
+                                    Tổng cộng giá đã đặt:
+                                </h6>
+                                <br />
+                                <br />
+                            </div>
+                            <br />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h6
+                                            style="
+                                                float: left;
+                                                margin-right: 30px;
+                                                text-align: right;
+                                            "
+                                        >
+                                            Họ và tên (người nhận):
+                                        </h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input
+                                            id="tennguoinhan"
+                                            type="text"
+                                            style="
+                                                width: 100%;
+                                                height: 30px;
+                                                margin-top: -30px;
+                                            "
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h6
+                                            style="
+                                                float: left;
+                                                margin-right: 30px;
+                                                text-align: right;
+                                            "
+                                        >
+                                            Địa chỉ (người nhận):
+                                        </h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input
+                                            id="diachi"
+                                            type="text"
+                                            style="
+                                                width: 100%;
+                                                height: 30px;
+                                                margin-top: -30px;
+                                            "
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h6
+                                            style="
+                                                float: left;
+                                                margin-right: 30px;
+                                                text-align: right;
+                                            "
+                                        >
+                                            Số điện thoại (người nhận):
+                                        </h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input
+                                            id="sdt"
+                                            type="text"
+                                            style="
+                                                width: 100%;
+                                                height: 30px;
+                                                margin-top: -30px;
+                                            "
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-12" style="text-align: center">
+                                <button
+                                    id="checkouttrasau"
+                                    class="btn btn-danger"
+                                    onclick="checkouttrasau()"
+                                >
+                                    Thanh toán trả sau
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <hr />
+            <div class="chitiet" style="text-align: center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <div style="overflow-x: scroll">
+                                    <table
+                                        class="table table-hover table-striped"
+                                        style="font-size: 18px"
+                                    >
+                                        <tr id="dataProduct">
+                                            <th
+                                                style="
+                                                    text-align: center;
+                                                    width: 20%;
+                                                "
+                                            >
+                                                Hình ảnh
+                                            </th>
+                                            <th
+                                                style="
+                                                    text-align: center;
+                                                    width: 30%;
+                                                "
+                                            >
+                                                Tên sản phẩm
+                                            </th>
+                                            <th
+                                                style="
+                                                    text-align: center;
+                                                    width: 20%;
+                                                "
+                                            >
+                                                Giá tiền
+                                            </th>
+                                            <th
+                                                style="
+                                                    text-align: center;
+                                                    width: 10%;
+                                                "
+                                            >
+                                                Số lượng
+                                            </th>
+                                        </tr>
+                                        <!-- <div id="render"></div> -->
+                                        <!-- <tr>
+                                <td
+                                    style="text-align: center"
+                                    style="text-align: center"
+                                >
+                                    <img
+                                        src="../img/$image"
+                                        style="
+                                            width: 50px;
+                                            height: 50px;
+                                            border: groove #000;
+                                        "
+                                    />
+                                </td>
+                                <td style="text-align: center">
+                                    <input type="text" id="ten" />
+                                </td>
+                                <td style="text-align: center">
+                                    <input type="number" id="gia" />
+                                </td>
+                                <td style="text-align: center">
+                                    <input type="text" id="loaiNhan" />
+                                </td>
+                                <td style="text-align: center">
+                                    <input type="text" id="mota" />
+                                </td>
+                                <td style="text-align: center">
+                                    <input type="number" id="soluong" min="0" />
+                                </td>
+
+                                <td style="text-align: center">
+                                    <button
+                            class="btn btn-info"
+                            style="margin-top: 30px; text-align: right"
+                            onclick="update()"
+                        >
+                            Cập nhật
+                        </button>
+                                </td>
+                            </tr> -->
+                                    </table>
+                                </div>
+                            </div>
+
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+
+                    <br />
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-4" style="text-align: right">
+                            <div id="paypal-button-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <footer id="footer">
+                <p id="copyright">@copyright Chu lai Restaurant</p>
+            </footer>
+
+            <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+            <script src="firebase.js"></script>
+            <script
+                type="text/javascript"
+                src="https://www.paypal.com/sdk/js?client-id=AReMBtT3tGKi_GziXlXqS_QILeDieDrecWOxGn8Mh9wzSzzi71pIRj8dzu9zy1-rHc4kWzYt2iAwub8r"
+            ></script>
+            <script src="thanhtoan.js"></script>
+        </div>
+    </body>
+</html>
