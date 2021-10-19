@@ -29,7 +29,7 @@ function removeVietnameseTones(str) {
     );
     return str.toLowerCase().replace(/ /g, '');
 }
-// let userFB;
+let userFB;
 renderData = async () => {
     const name = document.getElementById('name');
     const email = document.getElementById('email');
@@ -46,7 +46,6 @@ renderData = async () => {
         } else {
             location.replace('dangnhap.html');
         }
-        console.log(userFB);
     });
     if (user_) {
     }
@@ -80,6 +79,9 @@ renderOrderss = data => {
                                 </td>
                                 <td style="text-align: center">
                                     ${data[i].sdt}
+                                </td> 
+                                <td style="text-align: center">
+                                    <button class="btn btn-danger" onclick="huydon('${data[i].madonhang}', '${data[i].uid}')"> Hủy đơn </button>
                                 </td> 
                                 </tr>`;
         dataProduct.insertAdjacentHTML('afterend', html);
@@ -128,6 +130,7 @@ renderOrder = () => {
                                  <th style="text-align: center; width: 10%">
                                     SĐT
                                 </th>
+                                <th style="text-align: center; width: 10%"></th>
                             </tr>
                      
                         </table>
@@ -137,4 +140,53 @@ renderOrder = () => {
     render.insertAdjacentHTML('afterbegin', html);
 
     renderDataOrder();
+};
+var GHNapi =
+    'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel';
+
+function createOrder(data, madon, uid) {
+    var option = {
+        method: 'POST',
+        headers: {
+            Token: '3104c425-0fcf-11ec-b5ad-92f02d942f87',
+            'Content-Type': 'application/json',
+            ShopId: '82647',
+        },
+        body: JSON.stringify(data),
+    };
+
+    fetch(GHNapi, option)
+        .then(function (response) {
+            alert('Hủy đơn hàng thành công');
+            location.replace('orders.html');
+        })
+        .then(data => {
+            firebase
+                .database()
+                .ref('checkoutDone/' + uid + '/' + madon)
+                .remove();
+        });
+}
+
+huydon = (madon, uid) => {
+    if (document.getElementById('paypal').value != 'paypal') {
+        var jsonOrder = {
+            order_codes: [madon],
+        };
+        createOrder(jsonOrder, madon, uid);
+    } else {
+        firebase
+            .database()
+            .ref('checkoutDone/' + uid)
+            .remove();
+    }
+};
+
+thaymatkhau = () => {
+    firebase
+        .auth()
+        .sendPasswordResetEmail(userFB.email)
+        .then(() => {
+            alert('Vui lòng vào email để đổi mật khẩu !!');
+        });
 };

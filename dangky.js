@@ -12,6 +12,22 @@ signup = async () => {
     const res = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
+        .then(res => {
+            console.log(res);
+            firebase
+                .database()
+                .ref('users/')
+                .child(res.user.uid)
+                .set({
+                    email: res.user.email,
+                    uid: res.user.uid,
+                    ten: name,
+                })
+                .then(() => {
+                    alert('Đăng ký thành công');
+                    location.replace('index.html');
+                });
+        })
         .catch(error => {
             const errorHTML = document.getElementById('error');
             if (error.message === 'The email address is badly formatted.')
@@ -27,18 +43,18 @@ signup = async () => {
                 errorHTML.innerHTML = 'Địa chỉ email đã được sử dụng';
             else errorHTML.innerHTML = error.message;
         });
-    if (res) {
-        const user = await firebase
-            .database()
-            .ref('users/')
-            .child(res.user.uid)
-            .set({
-                email: res.user.email,
-                uid: res.user.uid,
-                ten: name,
-            });
+    // if (res) {
+    //     const user = await firebase
+    //         .database()
+    //         .ref('users/')
+    //         .child(res.user.uid)
+    //         .set({
+    //             email: res.user.email,
+    //             uid: res.user.uid,
+    //             ten: name,
+    //         });
 
-        alert('Đăng ký thành công');
-        location.replace('index.html');
-    }
+    //     alert('Đăng ký thành công');
+    //     location.replace('index.html');
+    // }
 };

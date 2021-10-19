@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Quản lý thực phẩm</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Đơn hàng</title>
         <link href="style/css/bootstrap.min.css" rel="stylesheet" />
         <link href="style/css/k.css" rel="stylesheet" />
-        <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon" />
     </head>
     <body>
         <nav class="navbar navbar-default navbar-static-top">
@@ -34,11 +35,10 @@
                         Admin Panel
                     </a>
                 </div>
-                <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div class="container-fluid main-container">
+        <div class="container-fluid">
             <div class="col-md-2 sidebar" style="margin-left: 20px">
                 <div class="row">
                     <div class="absolute-wrapper"></div>
@@ -196,10 +196,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-9 content" style="margin-left: 10px">
                 <div class="panel-heading" style="background-color: #c4e17f">
-                    <h1>Đồ ăn và thức uống</h1>
+                    <h1>Quản lý đơn hàng</h1>
                 </div>
                 <br />
                 <div class="table-responsive">
@@ -210,31 +209,28 @@
                         >
                             <tr id="dataProduct">
                                 <th style="text-align: center; width: 10%">
-                                    Hình ảnh
-                                </th>
-                                <th style="text-align: center; width: 20%">
-                                    Tên sản phẩm
+                                    Người gửi
                                 </th>
                                 <th style="text-align: center; width: 10%">
-                                    Giá tiền
+                                    Mã Đặt hàng
                                 </th>
-                                <th style="text-align: center; width: 15%">
-                                    Loại - nhãn
-                                </th>
-                                <th style="text-align: center; width: 20%">
-                                    Mô tả
+
+                                <th style="text-align: center; width: 10%">
+                                    Tổng giá
                                 </th>
                                 <th style="text-align: center; width: 10%">
-                                    Số lượng
+                                    Phương thức
+                                </th>
+                                <th style="text-align: center; width: 20%">
+                                    Tên người nhận
+                                </th>
+                                <th style="text-align: center; width: 20%">
+                                    Địa chỉ
+                                </th>
+                                <th style="text-align: center; width: 10%">
+                                    SĐT
                                 </th>
                                 <th></th>
-                                <th style="text-align: center; width: 10%">
-                                    <a
-                                        class="btn btn-primary"
-                                        href="add_product.html"
-                                        >Thêm
-                                    </a>
-                                </th>
                             </tr>
                             <!-- <div id="render"></div> -->
                             <!-- <tr>
@@ -282,6 +278,7 @@
                 </div>
             </div>
         </div>
+
         <script type="text/javascript">
             $(function () {
                 $('.navbar-toggle-sidebar').click(function () {
@@ -307,6 +304,6 @@
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
         <script src="../firebase.js"></script>
-        <script src="food_list.js"></script>
+        <script src="orders.js"></script>
     </body>
 </html>

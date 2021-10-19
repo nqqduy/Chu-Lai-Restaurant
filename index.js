@@ -112,20 +112,22 @@ renderProduct = data => {
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class="col-sm-3 mt-3">
+            tensp = removeVietnameseTones(datarender[i].ten);
+            const html = `<div class="col-lg-3 mt-3 col-md-6">
                     <div class="product">
-                        <a href="details${i}.htmnl">
+                        <a href="details.html?${datarender[i].loai}-${datarender[i].nhan}-${tensp}">
                             <img src="${datarender[i].anh}" alt=""/>
                         </a>
                         <div class="text bk">
                             <h3>
-                                <a href="details.php" title=""> ${datarender[i].ten} </a>
+                                <a href="details.html?${datarender[i].loai}-${datarender[i].nhan}-${tensp}" title=""> ${datarender[i].ten} </a>
                             </h3>
                             <p class="gia">Giá : ${datarender[i].gia} VNĐ</p>
                             <button type='button' style="width:45% " class='btn btn-success' onclick="addCart('${datarender[i].ten}', '${datarender[i].gia}','${datarender[i].anh}')"> <i class='fa fa-shopping-cart'> Thêm vào giỏ </i></button>
                              <button type="button" class="btn" style="width:45% ">
+                             <a href="details.html?${datarender[i].loai}-${datarender[i].nhan}-${tensp}"> 
                                     <i class="fa fa-info-circle" ></i>
-                                        Chi tiết
+                                        Chi tiết</a>
                                 </button>
                             
                         </div>
@@ -160,14 +162,15 @@ renderData = async () => {
                     render.insertAdjacentHTML('afterbegin', html);
                 }
             });
-
-        const user = await firebase
-            .database()
-            .ref('users/' + userFB.uid)
-            .once('value', data => {
-                ten.innerHTML = data.val().ten;
-                tenFB = data.val().ten;
-            });
+        if (userFB) {
+            const user = await firebase
+                .database()
+                .ref('users/' + userFB.uid)
+                .once('value', data => {
+                    ten.innerHTML = data.val().ten;
+                    tenFB = data.val().ten;
+                });
+        }
     } catch (err) {
         alert(err);
     }
@@ -223,6 +226,8 @@ addCart = async (ten, gia, anh) => {
 };
 
 binhluan = async () => {
+    if (!userFB) {
+    }
     const binhluan = document.getElementById('binhluan').value;
     if (binhluan != '') {
         await firebase
@@ -231,6 +236,7 @@ binhluan = async () => {
             .set({
                 ten: tenFB,
                 noidung: binhluan,
+                uid: userFB.uid,
             })
             .then(data => {
                 alert('Thêm bình luận thành công');
@@ -243,16 +249,16 @@ binhluan = async () => {
 
 renderDataBinhLuan = data => {
     for (var i = 0; i < data.length; i++) {
-        const html = ` <div class="col-sm-4">
+        const html = ` <div class="col-lg-3 col-md-6">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <img
                                 src="img/avatar.png"
                                 alt=""
                                 style="width: 100px; height: 100px"
                             />
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-lg-8">
                             <p
                                 style="
                                     font-size: 20px;

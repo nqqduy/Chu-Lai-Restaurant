@@ -42,7 +42,16 @@ let totalItem_FB = 0;
 var GHNapi =
     'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
 
-function createOrder(data) {
+function createOrder(
+    data,
+    totalItem_FB,
+    tennguoinhan,
+    priceTotalVoucher,
+    diachi,
+    nhieusanpham,
+    sdt,
+    _madonhang
+) {
     var option = {
         method: 'POST',
         headers: {
@@ -53,13 +62,42 @@ function createOrder(data) {
         body: JSON.stringify(data),
     };
 
-    fetch(GHNapi, option).then(function (response) {
-        response.json();
-    });
+    fetch(GHNapi, option)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            firebase
+                .database()
+                .ref('checkoutDone/' + userFB.uid + '/' + _madonhang)
+                .update({
+                    tonghang: totalItem_FB,
+                    tonggia: String(priceTotalVoucher),
+                    phuongthucthanhtoan: 'trả sau',
+                    madonhang: data.data.order_code,
+                    tennguoinhan: tennguoinhan,
+                    diachi: diachi,
+                    sanpham: nhieusanpham,
+                    sdt: sdt,
+                    uid: userFB.uid,
+                });
+        })
+        .then(data => {
+            alert('Tạo đơn hàng thành công');
+        });
 }
 
-GHN = (tennguoinhan, tonggia, diachi, sanpham, sdt) => {
-    sanpham = Object.values(sanpham); // [ {}, {}]
+GHN = (
+    totalItem_FB,
+    tennguoinhan,
+    priceTotalVoucher,
+    diachi,
+    nhieusanpham,
+    sdt,
+    _madonhang
+) => {
+    sanpham = Object.values(nhieusanpham); // [ {}, {}]
     let items = [];
 
     for (var i = 0; i < sanpham.length; i++) {
@@ -82,30 +120,39 @@ GHN = (tennguoinhan, tonggia, diachi, sanpham, sdt) => {
         return_address: '39 NTT',
         return_district_id: null,
         return_ward_code: '',
-        client_order_code: '',
+        client_order_code: null,
         to_name: tennguoinhan,
         to_phone: sdt,
         to_address: diachi,
         to_ward_code: '20308',
-        to_district_id: 1444,
+        to_district_id: null,
         // Quận 3
-        cod_amount: 200000,
+        cod_amount: 0,
         content: 'Theo New York Times',
         weight: 200,
         length: 1,
         width: 19,
         height: 10,
-        pick_station_id: 1444,
+        pick_station_id: 0,
         deliver_station_id: null,
-        insurance_value: Number(tonggia),
+        insurance_value: Number(priceTotalVoucher),
         service_id: 0,
         service_type_id: 2,
-        order_value: Number(tonggia),
+        order_value: Number(priceTotalVoucher),
         coupon: null,
         pick_shift: [2],
         items: sanpham,
     };
-    createOrder(jsonOrder);
+    createOrder(
+        jsonOrder,
+        totalItem_FB,
+        tennguoinhan,
+        priceTotalVoucher,
+        diachi,
+        nhieusanpham,
+        sdt,
+        _madonhang
+    );
 };
 renderProduct = datarender => {
     totalItem.innerHTML = 'Tổng cộng mặt hàng trong giỏ: ' + datarender.length;
@@ -221,6 +268,10 @@ checkouttrasau = async () => {
     const diachi = document.getElementById('diachi').value;
     const sdt = document.getElementById('sdt').value;
     let nhieusanpham;
+    if (sdt.length != 10) {
+        alert('số điện thoại không hợp lệ !!');
+        return;
+    }
     if (tennguoinhan != '' && diachi != '') {
         const laysanpham = await firebase
             .database()
@@ -246,17 +297,18 @@ checkouttrasau = async () => {
                     diachi: diachi,
                     sanpham: nhieusanpham,
                     sdt: sdt,
+                    uid: userFB.uid,
                 })
                 .then(data => {
                     GHN(
+                        totalItem_FB,
                         tennguoinhan,
                         priceTotalVoucher,
                         diachi,
                         nhieusanpham,
-                        sdt
+                        sdt,
+                        _madonhang
                     );
-                    alert('Đơn hàng tạo thành công');
-                    location.replace('index.html');
                 });
         }
     } else alert('Vui lòng nhập thông tin');
@@ -281,6 +333,8 @@ update_ = async (nhieusanpham, details, madonhang) => {
                 ', ' +
                 details.purchase_units[0].shipping.address.admin_area_2,
             sanpham: nhieusanpham,
+            uid: userFB.uid,
+            
         })
         .then(() => {
             alert('Thanh toán PAYPAL thành công, mã đơn hàng: ' + madonhang);

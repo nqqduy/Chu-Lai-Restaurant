@@ -3,6 +3,12 @@
     padding: 0;
     font-family: 'Pridi';
 }
+.card {
+    width: 100%;
+}
+/* #child {
+    text-align: center;
+} */
 .duyy1 {
     margin-right: 10px;
 }
@@ -213,13 +219,25 @@ h2 {
         display: block;
         margin-left: 16%;
     }
+    #myBtn1 {
+        margin: 10px;
+    }
 }
 @media (max-width: 576px) {
+    .banner1 p {
+        padding-bottom: 0px;
+    }
+    #myBtn1 {
+        margin: 10px;
+    }
+    .cc {
+        text-align: center;
+    }
     .navbar a {
         font-size: 15px;
     }
     .banner1 .logo1 {
-        padding-top: 45%;
+        padding-top: 10%;
     }
     .navbar .logo {
         text-align: center;
@@ -261,16 +279,20 @@ h2 {
     }
     ._ten {
         width: 172px;
+        text-align: left;
     }
     ._email {
         width: 128px;
+        text-align: left;
     }
-    ._email2 {
-        width: 50px;
-    }
+    /* ._email2 {
+        width: 100px;
+    } */
     #_info {
         text-align: center;
         width: 100%;
+    }
+    .logo1 {
     }
 }
 @media (max-width: 375px) {
@@ -296,7 +318,10 @@ h2 {
         font-size: 35px;
     }
     .banner1 .logo1 {
-        padding-top: 17%;
+        padding-top: 10%;
+    }
+    #user {
+        padding-bottom: 20px;
     }
 }
 
@@ -396,5 +421,11 @@ button:hover {
     width: 180px;
 }
 .cc {
-    text-align: left;
+    text-align: center;
+}
+
+.anhchitiet {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
 }

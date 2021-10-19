@@ -13,6 +13,9 @@
     
 </head>
 <body >
+    <div class="container-fluid">
+        
+    
 	<div class="banner_sanpham">
 		   <nav
                 class="navbar navbar-dark bg-inverse navbar-fixed-top tren"
@@ -58,42 +61,44 @@
 	<br>
 	<br>
 	<br>
-	<div class="container">
+
 		<div class="row">
 			<div class="col-sm-3">				
 				<a href="index.html">Trang chủ</a> >> Sản phẩm
 			</div>
 		</div>
-	</div>
-	<div class="container">
+	
+	
 		<div class="row">
-			<div id="form" style="margin-top: 20px;">
-				<form action="ketqua.html" method="get" accept-charset="utf-8" enctype="multipart/form-data">
-					<input type="van ban" name="user_query" value="" placeholder="Tìm kiếm sản phẩm" style="padding: 8px;">
-					<input type="submit" name="search"value="Search" style="padding: 8px;">
-				</form>
-			</div>
+            <div class="col-lg-12">
+                <div id="form" style="margin-top: 20px;">
+                   
+                        <input type="van ban" name="user_query" value="" placeholder="Tìm kiếm sản phẩm" style="padding: 8px;" id='search'>
+                        <button class="btn btn-danger" onclick="search()" style="padding: 12px;">Search</button>
+                    
+                </div>
+            </div>
 
 
-
-	</div>
 
 </div>
 <br>
-<div class="container">
-	<div class="col-sm-3">
+
+    <div class="row">
+	<div class="col-lg-3">
 		<a href="cart.html" style="display: block; color:rgb(57, 58, 58)"><i class="fa fa-shopping-cart" style="font-size:20px;"> Quản lý giỏ hàng</i></a>
 	</div>
-</div>
-<div class="menu">
+    </div>
+
+<div class="menu mt-2">
 	<h1 style="text-align: center;"> THỰC PHẨM VÀ ĐỒ UỐNG</h1>
 </div>
 <br>
 <br>
 <hr>
-<div class="container-fluid">
+
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-lg-3">
             <div class="div">
                 <h4 style="text-align:center">MỤC LỤC SẢN PHẨM</h4>
                 <ul>
@@ -106,19 +111,19 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-lg-9">
             <div class="row"  id="render">
                 
             </div>
         </div>
 	</div>
-</div>
+
         <footer id="footer">
             <p id="copyright">@copyright Chu lai Restaurant</p>
         </footer>
 </div>
 </div>
-
+</div>
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>

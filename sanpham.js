@@ -38,6 +38,7 @@ function removeVietnameseTones(str) {
     );
     return str.toLowerCase().replace(/ /g, '');
 }
+
 let number;
 const tatca = document.getElementById('tatca');
 const banh = document.getElementById('banh');
@@ -46,17 +47,19 @@ const nuocuong = document.getElementById('nuocuong');
 const com = document.getElementById('com');
 const anvat = document.getElementById('anvat');
 const render = document.getElementById('render');
+let allSanPham = [];
 renderProduct = data => {
     datarender = [];
 
     for (var i = 0; i < data.length; i++) {
         datarender = datarender.concat(Object.values(data[i]));
     }
+    if (allSanPham.length == 0) allSanPham = allSanPham.concat(datarender);
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class='col-sm-4' id="child">
-			<div class='card' style='width: 18rem; height:400px'>
+            const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
 			<img class='card-img-top img-fluid' src='${datarender[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
 			<div class='card-body'>
 			<h5 class='card-title tieude' style='
@@ -74,7 +77,7 @@ renderProduct = data => {
     }
 
     if (number == 0) {
-        const html = `<div class='col-sm-4' id="child" >
+        const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
         render.insertAdjacentHTML('afterbegin', html);
@@ -95,7 +98,7 @@ const renderData = async () => {
                         renderProduct(Object.values(data[i]));
                     }
                 } else {
-                    const html = `<div class='col-sm-4' id="child" >
+                    const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
                     render.insertAdjacentHTML('afterbegin', html);
@@ -110,8 +113,8 @@ const renderProductBanh = async datarender => {
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class='col-sm-4' id="child">
-			<div class='card' style='width: 18rem; height:400px'>
+            const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
 			<img class='card-img-top img-fluid' src='${datarender[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
 			<div class='card-body'>
 			<h5 class='card-title tieude' style='
@@ -128,7 +131,7 @@ const renderProductBanh = async datarender => {
         }
     }
     if (number == 0) {
-        const html = `<div class='col-sm-4' id="child">
+        const html = `<div class='col-lg-4' id="child">
                                     <h2>Đã hết sản phẩm</h2>
 			                </div>`;
         render.insertAdjacentHTML('afterbegin', html);
@@ -147,7 +150,7 @@ const renderBanh = async () => {
                     // console.log(Object.values(snapshot.val()));
                     renderProductBanh(Object.values(snapshot.val()));
                 } else {
-                    const html = `<div class='col-sm-4' id="child" >
+                    const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
                     render.insertAdjacentHTML('afterbegin', html);
@@ -161,8 +164,8 @@ const renderProductMi = async datarender => {
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class='col-sm-4' id="child">
-			<div class='card' style='width: 18rem; height:400px'>
+            const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
 			<img class='card-img-top img-fluid' src='${datarender[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
 			<div class='card-body'>
 			<h5 class='card-title tieude' style='
@@ -179,7 +182,7 @@ const renderProductMi = async datarender => {
         }
     }
     if (number == 0) {
-        const html = `<div class='col-sm-4' id="child" >
+        const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
         render.insertAdjacentHTML('afterbegin', html);
@@ -198,7 +201,7 @@ const renderMi = async () => {
                     // console.log(Object.values(snapshot.val()));
                     renderProductMi(Object.values(snapshot.val()));
                 } else {
-                    const html = `<div class='col-sm-4' id="child" >
+                    const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
                     render.insertAdjacentHTML('afterbegin', html);
@@ -213,8 +216,8 @@ const renderProductNuocuong = async datarender => {
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class='col-sm-4' id="child">
-			<div class='card' style='width: 18rem; height:400px'>
+            const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
 			<img class='card-img-top img-fluid' src='${datarender[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
 			<div class='card-body'>
 			<h5 class='card-title tieude' style='
@@ -231,7 +234,7 @@ const renderProductNuocuong = async datarender => {
         }
     }
     if (number == 0) {
-        const html = `<div class='col-sm-4' id="child" >
+        const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
         render.insertAdjacentHTML('afterbegin', html);
@@ -250,7 +253,7 @@ const renderNuocuong = async () => {
                     // console.log(Object.values(snapshot.val()));
                     renderProductNuocuong(Object.values(snapshot.val()));
                 } else {
-                    const html = `<div class='col-sm-4' id="child" >
+                    const html = `<div class='col-lg-4' id="child" >
                                     <h2 style="color: red">Đã hết sản phẩm</h2>
 			                    </div>`;
                     render.insertAdjacentHTML('afterbegin', html);
@@ -265,8 +268,8 @@ const renderProductCom = async datarender => {
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class='col-sm-4' id="child">
-			<div class='card' style='width: 18rem; height:400px'>
+            const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
 			<img class='card-img-top img-fluid' src='${datarender[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
 			<div class='card-body'>
 			<h5 class='card-title tieude' style='
@@ -295,7 +298,7 @@ const renderCom = async () => {
                     // console.log(Object.values(snapshot.val()));
                     renderProductCom(Object.values(snapshot.val()));
                 } else {
-                    const html = `<div class='col-sm-4' id="child">
+                    const html = `<div class='col-lg-4' id="child">
                                     <h2>Đã hết sản phẩm</h2>
 			                    </div>`;
                     render.insertAdjacentHTML('afterbegin', html);
@@ -310,8 +313,8 @@ const renderProductAnvat = async datarender => {
     for (var i = 0; i < datarender.length; i++) {
         if (datarender[i].soluong * 1 > 0) {
             number++;
-            const html = `<div class='col-sm-4' id="child">
-			<div class='card' style='width: 18rem; height:400px'>
+            const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
 			<img class='card-img-top img-fluid' src='${datarender[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
 			<div class='card-body'>
 			<h5 class='card-title tieude' style='
@@ -340,7 +343,7 @@ const renderAnvat = async () => {
                     // console.log(Object.values(snapshot.val()));
                     renderProductAnvat(Object.values(snapshot.val()));
                 } else {
-                    const html = `<div class='col-sm-4' id="child">
+                    const html = `<div class='col-lg-4' id="child">
                                     <h2>Đã hết sản phẩm</h2>
 			                    </div>`;
                     render.insertAdjacentHTML('afterbegin', html);
@@ -453,5 +456,39 @@ addCart = async (ten, gia, anh) => {
         }
     } catch (error) {
         alert(error);
+    }
+};
+
+search = () => {
+    var child = document.querySelectorAll('#child');
+    for (var i = 0; i < child.length; i++) render.removeChild(child[i]);
+    let item = document.getElementById('search').value;
+    if (item.length == 0) {
+        alert('Bạn chưa nhập gì !!');
+        return;
+    }
+    item = removeVietnameseTones(item);
+    setupcolor();
+    console.log(allSanPham);
+    for (var i = 0; i < allSanPham.length; i++) {
+        if (allSanPham[i].soluong * 1 > 0) {
+            if (removeVietnameseTones(allSanPham[i].ten).search(item) != -1) {
+                const html = `<div class='col-lg-4' id="child">
+			<div class='card' style=' height:400px'>
+			<img class='card-img-top img-fluid' src='${allSanPham[i].anh}' alt='Card image cap'style='width:100%; height:179px'>
+			<div class='card-body'>
+			<h5 class='card-title tieude' style='
+			text-align: center;
+			padding-top: 5%; font-size: 30px; color:red;padding-left:10px
+			'>${allSanPham[i].ten}</h5>
+			<p class='card-text'style='color:blue; font-size: 20px; padding-left:10px'>${allSanPham[i].mota}</p>
+			<p style='font-size: 20px;padding-left:10px'>Giá: ${allSanPham[i].gia} VNĐ</p>
+			<button type='button' class='btn btn-success duy11' onclick="addCart('${allSanPham[i].ten}', '${allSanPham[i].gia}','${allSanPham[i].anh}')"> <i class='fa fa-shopping-cart'> Thêm vào giỏ </i></button>
+			</div>
+			</div>
+			</div>`;
+                render.insertAdjacentHTML('afterbegin', html);
+            }
+        }
     }
 };
