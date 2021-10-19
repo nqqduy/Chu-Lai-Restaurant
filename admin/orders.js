@@ -57,8 +57,8 @@ renderOrderss = async data => {
                                     ${dataReal[i].sdt}
                                 </td> 
                                
-                                <td style="text-align: center">
-                                    <button class="btn btn-danger" onclick="huydon('${dataReal[i].madonhang}', '${dataReal[i].uid}')"> Hủy đơn </button>
+                                 <td style="text-align: center">
+                                    <button class="btn btn-danger" onclick="huydon('${dataReal[i].madonhangGHN}', '${dataReal[i].uid}', '${dataReal[i].madonhang}')"> Hủy đơn </button>
                                 </td> 
                                 </tr>`;
         dataProduct.insertAdjacentHTML('afterend', html);
@@ -84,8 +84,7 @@ renderDataOrder();
 
 var GHNapi =
     'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel';
-
-function createOrder(data, madon, uid) {
+function cancerOrder(data, uid, madon) {
     var option = {
         method: 'POST',
         headers: {
@@ -96,25 +95,24 @@ function createOrder(data, madon, uid) {
         body: JSON.stringify(data),
     };
 
-    fetch(GHNapi, option)
-        .then(function (response) {
+    fetch(GHNapi, option).then(function (response) {
+        const check = firebase
+            .database()
+            .ref('checkoutDone/' + uid + '/' + madon)
+            .remove();
+        if (check) {
             alert('Hủy đơn hàng thành công');
             location.replace('orders.html');
-        })
-        .then(data => {
-            firebase
-                .database()
-                .ref('checkoutDone/' + uid + '/' + madon)
-                .remove();
-        });
+        }
+    });
 }
 
-huydon = (madon, uid) => {
+huydon = (madonghn, uid, madon) => {
     if (document.getElementById('paypal').value != 'paypal') {
         var jsonOrder = {
-            order_codes: [madon],
+            order_codes: [madonghn],
         };
-        createOrder(jsonOrder, madon, uid);
+        cancerOrder(jsonOrder, uid, madon);
     } else {
         firebase
             .database()

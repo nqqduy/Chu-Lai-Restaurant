@@ -75,7 +75,8 @@ function createOrder(
                     tonghang: totalItem_FB,
                     tonggia: String(priceTotalVoucher),
                     phuongthucthanhtoan: 'trả sau',
-                    madonhang: data.data.order_code,
+                    madonhangGHN: data.data.order_code,
+                    madonhang: _madonhang,
                     tennguoinhan: tennguoinhan,
                     diachi: diachi,
                     sanpham: nhieusanpham,
@@ -85,6 +86,7 @@ function createOrder(
         })
         .then(data => {
             alert('Tạo đơn hàng thành công');
+            location.replace('index.html');
         });
 }
 
@@ -120,7 +122,7 @@ GHN = (
         return_address: '39 NTT',
         return_district_id: null,
         return_ward_code: '',
-        client_order_code: null,
+        client_order_code: _madonhang,
         to_name: tennguoinhan,
         to_phone: sdt,
         to_address: diachi,
@@ -334,7 +336,6 @@ update_ = async (nhieusanpham, details, madonhang) => {
                 details.purchase_units[0].shipping.address.admin_area_2,
             sanpham: nhieusanpham,
             uid: userFB.uid,
-            
         })
         .then(() => {
             alert('Thanh toán PAYPAL thành công, mã đơn hàng: ' + madonhang);

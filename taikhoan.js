@@ -68,7 +68,7 @@ renderOrderss = data => {
                                 <td style="text-align: center">
                                      ${data[i].tonggia} VND
                                 </td>
-                                <td style="text-align: center">
+                                <td style="text-align: center" id="paypal">
                                      ${data[i].phuongthucthanhtoan}
                                 </td>
                                 <td style="text-align: center">
@@ -81,7 +81,7 @@ renderOrderss = data => {
                                     ${data[i].sdt}
                                 </td> 
                                 <td style="text-align: center">
-                                    <button class="btn btn-danger" onclick="huydon('${data[i].madonhang}', '${data[i].uid}')"> Hủy đơn </button>
+                                    <button class="btn btn-danger" onclick="huydon('${data[i].madonhangGHN}', '${data[i].uid}', '${data[i].madonhang}')"> Hủy đơn </button>
                                 </td> 
                                 </tr>`;
         dataProduct.insertAdjacentHTML('afterend', html);
@@ -144,7 +144,7 @@ renderOrder = () => {
 var GHNapi =
     'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel';
 
-function createOrder(data, madon, uid) {
+function cancerOrder(data, uid, madon) {
     var option = {
         method: 'POST',
         headers: {
@@ -155,25 +155,24 @@ function createOrder(data, madon, uid) {
         body: JSON.stringify(data),
     };
 
-    fetch(GHNapi, option)
-        .then(function (response) {
+    fetch(GHNapi, option).then(function (response) {
+        const check = firebase
+            .database()
+            .ref('checkoutDone/' + uid + '/' + madon)
+            .remove();
+        if (check) {
             alert('Hủy đơn hàng thành công');
-            location.replace('orders.html');
-        })
-        .then(data => {
-            firebase
-                .database()
-                .ref('checkoutDone/' + uid + '/' + madon)
-                .remove();
-        });
+            location.replace('taikhoan.html');
+        }
+    });
 }
 
-huydon = (madon, uid) => {
+huydon = (madonghn, uid, madon) => {
     if (document.getElementById('paypal').value != 'paypal') {
         var jsonOrder = {
-            order_codes: [madon],
+            order_codes: [madonghn],
         };
-        createOrder(jsonOrder, madon, uid);
+        cancerOrder(jsonOrder, uid, madon);
     } else {
         firebase
             .database()
